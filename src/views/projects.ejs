@@ -10,15 +10,20 @@
 <body>
 
     <%- include('partials/header') %>
-    
+
     <main>
         <h1><%= title %></h1>
 
         <h2>Upcoming Service Projects</h2>
         <ul>
-            <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
+            <!-- <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
             <li>Food Drive - Help collect and distribute food to those in need.</li>
-            <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
+            <li>Community Tutoring - Volunteer to tutor students in various subjects.</li> -->
+
+            <% projects.forEach(project => { %>
+                <li><%= project.project_date %>: <strong><%= project.title %> (<%= project.organization_name %>)</strong></li>
+              
+            <% }); %>
         </ul>
     </main>
     <%- include('partials/footer') %>
