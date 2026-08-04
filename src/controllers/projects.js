@@ -111,6 +111,13 @@ const showEditProjectForm = async (req, res) => {
     const projectDetails = await getProjectDetails(projectId);
     const organizations = await getAllOrganizations();
 
+    // Format project_date for HTML date input (YYYY-MM-DD)
+    if (projectDetails && projectDetails.project_date) {
+        projectDetails.formattedDate = new Date(projectDetails.project_date).toISOString().slice(0,10);
+    } else {
+        projectDetails.formattedDate = '';
+    }
+
     const title = "Edit Project";
     res.render("edit-project", { title, projectDetails, organizations });
 };

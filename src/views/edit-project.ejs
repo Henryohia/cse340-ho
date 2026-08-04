@@ -9,7 +9,7 @@
         type="text"
         id="title"
         name="title"
-        value="<%= projectDetails.name %>"
+        value="<%= projectDetails.title %>"
         required
         maxlength="150"
       />
@@ -34,7 +34,6 @@
         maxlength="255"
         required
         value="<%= projectDetails.location %>"
-        
       />
     </div>
 
@@ -45,25 +44,20 @@
         id="date"
         name="date"
         required
-        value="<%= projectDetails.date %>"
-        
+        value="<%= projectDetails.formattedDate || '' %>"
       />
     </div>
 
     <div class="form-group">
       <label for="organizationId">Organization</label>
       <select
-        type="text"
         id="organizationId"
         name="organizationId"
-        maxlength="255"
         required
-        value="<%= projectDetails.contact_email %>"
-        
       >
       <option value="">Select an organization</option>
         <% organizations.forEach(org => { %>
-          <option value="<%= org.organization_id %>"><%= org.name %></option>
+          <option value="<%= org.organization_id %>" <%= org.organization_id == projectDetails.organization_id ? 'selected' : '' %>><%= org.name %></option>
         <% }); %>
       </select>
     </div>
