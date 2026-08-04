@@ -127,7 +127,16 @@ const createCategory = async (name) => {
     return result.rows[0].category_id;
 };
 
+const updateCategory = async (categoryId, name) => {
+    const query = `
+      UPDATE category
+      SET name = $1
+      WHERE category_id = $2;
+    `;
 
+    const queryParams = [name, categoryId];
+    await db.query(query, queryParams);
+};
 
 export { 
     getAllCategories, 
@@ -135,5 +144,8 @@ export {
     getCategoriesByProjectId, 
     getProjectsByCategoryId, 
     getCategoryDetails,
-    createCategory
+    createCategory,
+    updateCategory,
+    assignCategoryToProject,
+    updateCategoryAssignments
 };  

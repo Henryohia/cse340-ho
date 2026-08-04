@@ -5,7 +5,10 @@ import {
     getProjectsByCategoryId, 
     getCategoryDetails, 
     getCategoriesByProjectId,
-    createCategory
+    createCategory,
+    assignCategoryToProject,
+    updateCategoryAssignments,
+    updateCategory
  } from '../models/categories.js';
 
  import { body, validationResult } from "express-validator";

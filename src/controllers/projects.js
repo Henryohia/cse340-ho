@@ -29,7 +29,7 @@ const projectValidation = [
         .isLength({ max: 1000 })
         .withMessage('Project description cannot exceed 1000 characters'),
     body('location')
-        .normalizeEmail()
+        .trim()
         .notEmpty()
         .withMessage('Contact email is required')
         .isLength({ max: 200 })
@@ -40,7 +40,7 @@ const projectValidation = [
         .isLength({ max: 200 })
         .isISO8601().withMessage('Date must be a valid date format'),
     body('organizationId')
-        .normalizeEmail()
+        .trim()
         .notEmpty()
         .withMessage('Organization is required')
         .isInt()
