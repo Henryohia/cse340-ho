@@ -119,12 +119,12 @@ const processEditProjectForm = async (req, res) => {
     const results = validationResult(req);
     if (!results.isEmpty()) {
         // Validation failed - loop through errors
-        results.array().forEach((Error) => {
-            req.flash("error", error.msg);
+        results.array().forEach((errItem) => {
+            req.flash("error", errItem.msg);
         });
 
-        // Redirect back to the new project form
-        return res.redirect("/edit-project" + req.params.id);
+        // Redirect back to the edit project form (ensure slash between path and id)
+        return res.redirect("/edit-project/" + req.params.id);
     }
     const projectId = req.params.id;
     const { title, description, location, date, organizationId } = req.body;

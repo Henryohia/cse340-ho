@@ -96,13 +96,13 @@ app.use((err, req, res, next) => {
 
   // Determine status and template
   const status = err.status || 500;
-  const template = status === 400 ? "404" : "500";
+    const template = status === 404 ? "404" : "500";
 
   // Prepare data for the template
   const context = {
     title: status === 404 ? "Page Not Found" : "Server Error",
     error: err.message,
-    stak: err.stack
+      stack: err.stack
   };
 
   // Render the appropriate error template

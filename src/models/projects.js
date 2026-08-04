@@ -100,14 +100,14 @@ const getProjectDetails = async(id) => {
  *  * @param {string} organizationId - The organization id for each organization
  * @returns {string} The id of the newly created project.
  */
-const createProject = async (title, description, location, date, organizationId) => {
+const createProject = async (title, description, location, project_date, organizationId) => {
     const query = `
-      INSERT INTO service_project (title, description, location, date, organization_id)
+      INSERT INTO service_project (title, description, location, project_date, organization_id)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING project_id
     `;
 
-    const queryParams = [title, description, location, date, organizationId];
+    const queryParams = [title, description, location, project_date, organizationId];
     const result = await db.query(query, queryParams);
 
     if (result.rows.length === 0) {
@@ -121,14 +121,14 @@ const createProject = async (title, description, location, date, organizationId)
     return result.rows[0].project_id;
 };
 
-const updateProject = async (projectId, title, description, location, date, organizationId) => {
+const updateProject = async (projectId, title, description, location, project_date, organizationId) => {
     const query = `
         UPDATE service_project
-        SET title = $2, description = $3, location = $4, date = $5, organization_id = $6
+        SET title = $2, description = $3, location = $4, project_date = $5, organization_id = $6
         WHERE project_id = $1
     `;
 
-    const queryParams = [projectId, title, description, location, date, organizationId];
+    const queryParams = [projectId, title, description, location, project_date, organizationId];
     await db.query(query, queryParams);
 };
 

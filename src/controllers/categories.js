@@ -11,6 +11,8 @@ import {
     updateCategory
  } from '../models/categories.js';
 
+import { getProjectDetails } from '../models/projects.js';
+
  import { body, validationResult } from "express-validator";
 
 // Define validation and sanitization rules for category form
@@ -56,10 +58,10 @@ const showAssignCategoriesForm = async (req, res) => {
 
 const processAssignCategoriesForm = async (req, res) => {
     const projectId = req.params.projectId;
-    const selectedCategories = res.body.categoryId || [];
+    const selectedCategories = req.body.categoryId || [];
 
-    // Ensure selectedCategoryId is an array
-    const categoryIdsArray = Array.isArray(selectedCategoryIds) ? selectedCategoryIds : [selectedCategoryIds];
+    // Ensure selectedCategories is an array
+    const categoryIdsArray = Array.isArray(selectedCategories) ? selectedCategories : [selectedCategories];
     await updateCategoryAssignments(projectId, categoryIdsArray);
     req.flash("success", "Categories updated successfully.");
     res.redirect(`/project/${projectId}`);
@@ -76,8 +78,8 @@ const processNewCategoryForm = async (req, res) => {
     const results = validationResult(req);
     if (!results.isEmpty()) {
         // Validation failed - loop through errors
-        results.array().forEach((Error) => {
-            req.flash("error", error.msg);
+        results.array().forEach((errItem) => {
+            req.flash("error", errItem.msg);
         });
 
         // Redirect back to the new Category form
@@ -86,7 +88,7 @@ const processNewCategoryForm = async (req, res) => {
 
     const { name } = req.body;
 
-    const CategoryId = await createCategory(name);
+    const categoryId = await createCategory(name);
 
     req.flash("success", "Category added successfully!");
 
@@ -105,19 +107,19 @@ const processEditCategoryForm = async (req, res) => {
     const results = validationResult(req);
     if (!results.isEmpty()) {
         // Validation failed - loop through errors
-        results.array().forEach((Error) => {
-            req.flash("error", error.msg);
+        results.array().forEach((errItem) => {
+            req.flash("error", errItem.msg);
         });
 
-        // Redirect back to the new Category form
-        return res.redirect("/edit-category" + req.params.id);
+        // Redirect back to the edit Category form
+        return res.redirect("/edit-category/" + req.params.id);
     }
     const categoryId = req.params.id;
     const { name } = req.body;
     
     await updateCategory(categoryId, name);
 
-    // Set a success flsh message
+    // Set a success flash message
     req.flash("success", "Category updated successfully!");
 
     res.redirect(`/category/${categoryId}`);

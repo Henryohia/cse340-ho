@@ -2,7 +2,7 @@
 <main>
     <h1><%= title %></h1>
 
-<form action="/edit-project/{id}" method="POST">
+<form action="/edit-project/<%= projectDetails.project_id %>" method="POST">
     <div class="form-group">
       <label for="title">Project title</label>
       <input

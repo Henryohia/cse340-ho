@@ -92,7 +92,7 @@ router.post("/edit-project/:id", projectValidation, processEditProjectForm);
 router.get("/new-category", showNewCategoryForm);
 
 // Route to handle new category form submission
-router.post("/new-category", projectValidation, processNewCategoryForm);
+router.post("/new-category", categoryValidation, processNewCategoryForm);
 
 // Route to display the edit Category form
 router.get("/edit-category/:id", showEditCategoryForm);
