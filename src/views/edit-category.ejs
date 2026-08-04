@@ -2,7 +2,7 @@
 <main>
     <h1><%= title %></h1>
 
-<form action="/edit-category/{id}" method="POST">
+<form action="/edit-category/<%= categoryDetails.category_id %>" method="POST">
     <div class="form-group">
       <label for="name">Category Name</label>
       <input

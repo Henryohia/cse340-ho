@@ -34,7 +34,7 @@ const projectValidation = [
         .withMessage('Contact email is required')
         .isLength({ max: 200 })
         .withMessage('Project location cannot exceed 200 characters'),
-    body('date')
+        body('project_date')
         .notEmpty()
         .withMessage('Date is required')
         .isLength({ max: 200 })
@@ -91,11 +91,11 @@ const processNewProjectForm = async (req, res) => {
     }
 
     // Extract form data from req.body
-    const { title, description, location, date, organizationId } = req.body;
+    const { title, description, location, project_date, organizationId } = req.body;
 
     try {
         // Create the new project in the database
-        const newProjectId = await createProject(title, description, location, date, organizationId);
+        const newProjectId = await createProject(title, description, location, project_date, organizationId);
 
         req.flash('success', 'New service project created successfully!');
         res.redirect(`/project/${newProjectId}`);
@@ -119,12 +119,12 @@ const processEditProjectForm = async (req, res) => {
     const results = validationResult(req);
     if (!results.isEmpty()) {
         // Validation failed - loop through errors
-        results.array().forEach((errItem) => {
-            req.flash("error", errItem.msg);
+        results.array().forEach((Error) => {
+            req.flash("error", error.msg);  
         });
 
-        // Redirect back to the edit project form (ensure slash between path and id)
-        return res.redirect("/edit-project/" + req.params.id);
+        // Redirect back to the new project form
+        return res.redirect("/edit-project" + req.params.id);
     }
     const projectId = req.params.id;
     const { title, description, location, date, organizationId } = req.body;
