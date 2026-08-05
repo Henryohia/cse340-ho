@@ -5,7 +5,11 @@
 
     <h2><%= categoryDetails.name %></h2>
 
-    <p><a href="/edit-category/<%= categoryDetails.category_id %>">Edit Category</a></p>
+    <!-- <p><a href="/edit-category/<%= categoryDetails.category_id %>">Edit Category</a></p> -->
+
+    <% if (user && user.role_name === 'admin') { %>
+        <a href="/edit-category/<%= categoryDetails.category_id %>">Edit Category</a>
+    <% } %>
 
 
     <h3>Service Projects</h3>
