@@ -7,7 +7,8 @@ import {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersPage
  } from "./controllers/users.js";
 
 
@@ -55,6 +56,8 @@ import { validationResult } from "express-validator";
 
 const router = express.Router();
 
+// Routes for Users page
+router.get("/users", requireLogin, requireRole("admin"), showUsersPage)
 
 // Protected dashboard route
 router.get("/dashboard", requireLogin, showDashboard);
