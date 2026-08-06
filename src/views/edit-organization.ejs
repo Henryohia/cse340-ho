@@ -2,7 +2,7 @@
 <main>
     <h1><%= title %></h1>
 
-<form action="/edit-organization/{id}" method="POST">
+<form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST">
     <div class="form-group">
       <label for="name">Organization Name</label>
       <input

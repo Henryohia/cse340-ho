@@ -60,8 +60,8 @@ const processNewOrganizationForm = async (req, res) => {
     const results = validationResult(req);
     if (!results.isEmpty()) {
         // Validation failed - loop through errors
-        results.array().forEach((Error) => {
-            req.flash("error", error.msg);
+        results.array().forEach((errItem) => {
+            req.flash("error", errItem.msg);
         });
 
         // Redirect back to the new organization form
@@ -90,12 +90,12 @@ const processEditOrganizationForm = async (req, res) => {
     const results = validationResult(req);
     if (!results.isEmpty()) {
         // Validation failed - loop through errors
-        results.array().forEach((Error) => {
-            req.flash("error", error.msg);
+        results.array().forEach((errItem) => {
+            req.flash("error", errItem.msg);
         });
 
-        // Redirect back to the new organization form
-        return res.redirect("/edit-organization" + req.params.id);
+        // Redirect back to the edit organization form (ensure slash between path and id)
+        return res.redirect("/edit-organization/" + req.params.id);
     }
     const organizationId = req.params.id;
     const { name, description, contactEmail, logoFilename } = req.body;
