@@ -107,6 +107,8 @@ router.get("/new-project", requireRole("admin"), showNewProjectForm);
 router.post("/new-project", requireRole("admin"), projectValidation, processNewProjectForm);
 
 // Routes to handle the assign categories to project form
+// Redirect bare /assign-categories to projects listing (admin-only)
+// router.get("/assign-categories", requireRole("admin"), (req, res) => res.redirect('/projects'));
 router.get("/assign-categories/:projectId", requireRole("admin"), showAssignCategoriesForm);
 router.post("/assign-categories/:projectId", requireRole("admin"), processAssignCategoriesForm);
 
