@@ -11,7 +11,7 @@
           <input
             type="checkbox"
             id="category-<%= category.category_id %>"
-            name="categoryIds"
+            name="categoryId"
             value="<%= category.category_id %>"
             <%= assignedCategories.some(ac => ac.category_id === category.category_id) ? 'checked' : '' %>
           />

@@ -85,10 +85,11 @@ const assignCategoryToProject = async(projectId, categoryId) => {
         VALUES ($1, $2);
         `;
 
-        await db.query(query, [categoryId,projectId]);
+    // params: [categoryId, projectId]
+    await db.query(query, [categoryId, projectId]);
 }
 
-const updateCategoryAssignments = async(projectId, categoryId) => {
+const updateCategoryAssignments = async(projectId, categoryIds) => {
     // First, remove existing category assignments for the project
     const deleteQuery = `
         DELETE FROM project_category
@@ -97,8 +98,17 @@ const updateCategoryAssignments = async(projectId, categoryId) => {
     await db.query(deleteQuery, [projectId]);
 
     // Next, add the new category assignments
-    for (const categoryId of categoryIds) {
-        await assignCategoryToProject(categoryId, projectId);
+    if (!Array.isArray(categoryIds)) {
+        // if there's a single id, wrap it
+        categoryIds = categoryIds ? [categoryIds] : [];
+    }
+
+    for (const cid of categoryIds) {
+        // ensure value is an integer
+        const parsed = parseInt(cid, 10);
+        if (!isNaN(parsed)) {
+            await assignCategoryToProject(projectId, parsed);
+        }
     }
 }
 
