@@ -47,6 +47,11 @@ import {
     categoryValidation
  } from "./controllers/categories.js";
 
+import {
+    volunteerForProject,
+    removeVolunteerFromProject
+} from "./controllers/volunteers.js";
+
 import { testErrorPage } from "./controllers/errors.js";
 // import { showOrganizationDetailsPage } from "./controllers/organization.js";
 // import {  } from "./controllers/projects.js";
@@ -55,6 +60,10 @@ import { validationResult } from "express-validator";
 
 
 const router = express.Router();
+
+// Routes for Volunteer actions
+router.post("/project/:id/volunteer", requireLogin, volunteerForProject);
+router.post("/project/:id/remove-volunteer", requireLogin, removeVolunteerFromProject);
 
 // Routes for Users page
 router.get("/users", requireLogin, requireRole("admin"), showUsersPage)

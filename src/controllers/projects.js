@@ -1,4 +1,11 @@
 // Import any needed model functions
+import {
+    addVolunteerToProject,
+    removeVolunteer,
+    isVolunteerForProject,
+    getVolunteersByProjectId
+} from '../models/volunteers.js';
+
 import { getAllOrganizations } from '../models/organizations.js';
 import { 
     getAllProjects, 
@@ -64,10 +71,20 @@ const showProjectsPage = async (req, res) => {
 // It should then render a new view for the service project details page (project.ejs), passing in the service project data.
 const showProjectDetailsPage = async (req, res) => {
     const projectId = req.params.id;
+
     const projectDetails = await getProjectDetails(projectId);
     const categories = await getCategoriesByProjectId(projectId);
+    
+    const user = req.session.user;
+
+    const volunteers = await getVolunteersByProjectId(projectId);
+    let volunteeringStatus = false;
+
+    if (user) {
+        volunteeringStatus = await isVolunteerForProject(user.user_id, projectId);
+    }
     const title = 'Project Details';
-    res.render("project", { title, projectDetails, categories });
+    res.render("project", { title, projectDetails, categories, volunteers, volunteeringStatus });
 };
 
 const showNewProjectForm = async (req, res) => {
@@ -154,5 +171,5 @@ export {
     projectValidation, 
     processNewProjectForm, 
     showEditProjectForm, 
-    processEditProjectForm 
+    processEditProjectForm
 };
