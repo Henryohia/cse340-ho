@@ -47,10 +47,10 @@ import {
     categoryValidation
  } from "./controllers/categories.js";
 
-import {
+ import { 
     volunteerForProject,
     removeVolunteerFromProject
-} from "./controllers/volunteers.js";
+  } from "./controllers/volunteers.js";
 
 import { testErrorPage } from "./controllers/errors.js";
 // import { showOrganizationDetailsPage } from "./controllers/organization.js";

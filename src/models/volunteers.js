@@ -22,13 +22,11 @@ const removeVolunteer = async (userId, projectId) => {
 
 const getVolunteersByProjectId = async (projectId) => {
     const query = `
-        SELECT sp.project_id, sp.title, sp.description, sp.location, sp.project_date, o.name AS organization_name, u.user_id, u.name AS volunteer_name, u.email AS volunteer_email
+        SELECT u.user_id, u.name AS volunteer_name, u.email AS volunteer_email
         FROM volunteer v
-        JOIN service_project sp ON v.project_id = sp.project_id
-        JOIN organization o ON sp.organization_id = o.organization_id
         JOIN users u ON v.user_id = u.user_id
         WHERE v.project_id = $1
-        ORDER BY sp.project_date;
+        ORDER BY u.name;
     `;
     const result = await db.query(query, [projectId]);
     return result.rows;
